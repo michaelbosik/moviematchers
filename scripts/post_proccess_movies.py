@@ -2,6 +2,7 @@ import pandas as pd
 import json
 
 imdb_path = '../IMDB-Files/'
+db_path = '../site/database/'
 movies = pd.read_csv(imdb_path + 'movies.tsv', sep='\t', index_col=0)
 
 movies['genres'] = movies['genres'].map(lambda d: d.split(','))
@@ -18,5 +19,5 @@ for index, movie in movies.iterrows():
         movie_json[field] = movie[field]
     db_json.append(movie_json)
 
-with open(imdb_path + 'movies.json', 'w') as f:
+with open(db_path + 'movies.json', 'w') as f:
     json.dump(db_json, f)
