@@ -93,7 +93,6 @@ app.post('/checkuser', function(req, res) {
     //ELSE THROW ERROR
 })
 
-// Database endpoints
 app.post('/makeprofile', function(req, res) {
     db.get('users').push({
         name: req.body.name,
@@ -102,8 +101,13 @@ app.post('/makeprofile', function(req, res) {
     res.end("User " + req.body.name + " added to database!");
 });
 
-app.get('/getuser', function(req, res) {
-    res.end(db.get('users').find({id: req.body.id}));
+app.get('/userdata', function(req, res) {
+    let userdata = {
+        friends: db.get('users').find({username: req.body.username}).friends.value(),
+        genres: db.get('users').find({username: req.body.username}).genres.value(),
+        services: db.get('users').find({username: req.body.username}).services.value()
+    }
+    res.end(userdata);
 });
 
 app.post('/deleteuser', function(req, res) {
@@ -121,6 +125,10 @@ app.get('/main.css', function (req, res) {
     sendFile(res, './site/styles/main.css');
 });
 
+app.get('/main.js', function(req, res) {
+    sendFile(res, './site/scripts/main.js');
+})
+
 app.get('/login', function (req, res) {
     sendFile(res, './site/pages/login.html');
 });
@@ -135,6 +143,10 @@ app.get('/friends', function (req, res) {
         res.redirect('/login');
     }
 });
+
+app.get('/swipe', function (req, res) {
+    sendFile(res, './site/pages/swipe.html');
+})
 
 app.get('/addfriend', function (req, res) {
     let user = getUserFromIP(getIP(req));
