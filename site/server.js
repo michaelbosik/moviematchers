@@ -10,6 +10,11 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 db.defaults({users: [], movies: []}).write();
 var active_users = [];
@@ -87,10 +92,6 @@ app.post('/checkuser', function(req, res) {
             res.redirect('/editprofile');
         }
     }
-
-    //IF GOOD 
-    // sendFile(res, './site/pages/friends.html');
-    //ELSE THROW ERROR
 })
 
 app.post('/makeprofile', function(req, res) {
@@ -99,53 +100,25 @@ app.post('/makeprofile', function(req, res) {
         genres: req.body.genres
     }).write();
     res.end("User " + req.body.name + " added to database!");
-});
-
-app.get('/userdata', function(req, res) {
-    let userdata = {
-        friends: db.get('users').find({username: req.body.username}).friends.value(),
-        genres: db.get('users').find({username: req.body.username}).genres.value(),
-        services: db.get('users').find({username: req.body.username}).services.value()
-    }
-    res.end(userdata);
-});
-
-app.post('/deleteuser', function(req, res) {
-    db.get('users').remove({id: req.body.id}).write();
-    res.end('Deleted item');
-});
-
-// Page GET handlers
-app.get('/', function (req, res) {
-    console.log("User " + getIP(req) + " has connected!");
-    sendFile(res, './site/index.html');
-});
-
-app.get('/main.css', function (req, res) {
-    sendFile(res, './site/styles/main.css');
-});
-
-app.get('/main.js', function(req, res) {
-    sendFile(res, './site/scripts/main.js');
 })
 
-app.get('/login', function (req, res) {
-    sendFile(res, './site/pages/login.html');
-});
+app.post('/userdata', function(req, res) {
 
-app.get('/friends', function (req, res) {
-    let user = getUserFromIP(getIP(req));
-    if(user){
-        console.log("Showing user " + user.username + " friends");
-        sendFile(res, './site/pages/friends.html');
-    } else {
-        console.log("User logged out");
-        res.redirect('/login');
+    let user = db.get('users').find({username: req.body.username}).value();
+
+    let userdata = {
+        friends: user.friends,
+        genres: user.genres,
+        services: user.services
     }
-});
+    
+    console.log("Returning userdata for " + user.username + ".");
+    res.end(JSON.stringify(userdata));
+})
 
-app.get('/swipe', function (req, res) {
-    sendFile(res, './site/pages/swipe.html');
+app.post('/movies', function(req, res) {
+    console.log("Returning movies");
+    sendFile(res, './site/database/movies.json');
 })
 
 app.get('/addfriend', function (req, res) {
@@ -160,18 +133,44 @@ app.get('/addfriend', function (req, res) {
         console.log("User logged out");
         res.redirect('/login');
     }
-});
+})
+
+// Pages and file access
+app.get('/', function (req, res) {
+    console.log("User " + getIP(req) + " has connected!");
+    sendFile(res, './site/index.html');
+})
+
+app.get('/main.css', function (req, res) {
+    sendFile(res, './site/styles/main.css');
+})
+
+app.get('/bundle.js', function(req, res) {
+    sendFile(res, './site/scripts/bundle/bundle.js');
+})
+
+app.get('/login', function (req, res) {
+    sendFile(res, './site/pages/login.html');
+})
+
+app.get('/friends', function (req, res) {
+    let user = getUserFromIP(getIP(req));
+    if(user){
+        console.log("Showing user " + user.username + " friends");
+        sendFile(res, './site/pages/friends.html');
+    } else {
+        console.log("User logged out");
+        res.redirect('/login');
+    }
+})
+
+app.get('/swipe', function (req, res) {
+    sendFile(res, './site/pages/swipe.html');
+})
 
 app.get('/editprofile', function (req, res) {
     sendFile(res, './site/pages/editprofile.html');
 })
-
-app.get('/logout', function (req, res) {
-    loggedIn = '';
-    req.session.destroy();
-    res.redirect('/');
-});
-
 
 // Start server
 app.listen(port, '192.168.0.131', () => {
