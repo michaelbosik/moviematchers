@@ -1,10 +1,8 @@
+window.onload = () => {
+    getUser();
+}
 
-function nextMovie(userID, friendID) {
-    
-    var data = {
-        username: userID
-    };
-
+function getUser(){
     $.ajax({
         url: 'http://192.168.0.131.xip.io:3000/userdata',
         type: 'POST',

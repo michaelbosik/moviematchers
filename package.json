@@ -4,7 +4,8 @@
     "description": "",
     "author": "Michael Bosik and Matt Iandoli",
     "scripts": {
-        "start": "npm-run-all run",
+        "start": "npm-run-all browserify run",
+        "browserify": "browserify ./site/scripts/*.js > ./site/scripts/bundle/bundle.js",
         "run": "node site/server.js"
     },
     "dependencies": {
