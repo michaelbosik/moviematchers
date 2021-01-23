@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./site/styles/main.css">
+        <!-- <script>
+            var GoogleAuth;
+            var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+            function handleClientLoad() {
+              gapi.load('client:auth2', initClient);
+            }
+          
+            function initClient() {
+              var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+              gapi.client.init({
+                  'apiKey': 'AIzaSyCx0HbLqc8R_dY8FrgaK7k0XKfPWhNCpUA',
+                  'clientId': '281397086913-4jdl01s14e99o93of1gfki0bladf2ce9.apps.googleusercontent.com',
+                  'discoveryDocs': [discoveryUrl],
+                  'scope': SCOPE
+              }).then(function () {
+                GoogleAuth = gapi.auth2.getAuthInstance();
+                GoogleAuth.isSignedIn.listen(updateSigninStatus);
+
+                var user = GoogleAuth.currentUser.get();
+                setSigninStatus();
+
+                //Sign in button listener
+                $('#sign-in-or-out-button').click(function() {
+                  handleAuthClick();
+                });
+                $('#revoke-access-button').click(function() {
+                  revokeAccess();
+                });
+              });
+            }
+          
+            function handleAuthClick() {
+              if (GoogleAuth.isSignedIn.get()) {
+                GoogleAuth.signOut();
+              } else {
+                GoogleAuth.signIn();
+              }
+            }
+          
+            function revokeAccess() {
+              GoogleAuth.disconnect();
+            }
+          
+            function setSigninStatus() {
+              var user = GoogleAuth.currentUser.get();
+              var isAuthorized = user.hasGrantedScopes(SCOPE);
+              if (isAuthorized) {
+                $('#sign-in-or-out-button').html('Sign out');
+                $('#revoke-access-button').css('display', 'inline-block');
+                $('#auth-status').html('You are currently signed in and have granted ' +
+                    'access to this app.');
+              } else {
+                $('#sign-in-or-out-button').html('Sign In/Authorize');
+                $('#revoke-access-button').css('display', 'none');
+                $('#auth-status').html('You have not authorized this app or you are ' +
+                    'signed out.');
+              }
+            }
+          
+            function updateSigninStatus() {
+              setSigninStatus();
+            }
+          </script>
+          
+          <button id="sign-in-or-out-button"
+                  style="margin-left: 25px">Sign In/Authorize</button>
+          <button id="revoke-access-button"
+                  style="display: none; margin-left: 25px">Revoke access</button>
+          
+          <div id="auth-status" style="display: inline; padding-left: 25px"></div><hr>
+          
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+          <script async defer src="https://apis.google.com/js/api.js"
+                  onload="this.onload=function(){};handleClientLoad()"
+                  onreadystatechange="if (this.readyState === 'complete') this.onload()">
+          </script> -->
+    </head>
+    <body>
+        <div>
+            <h1 class="title">Sign In</h1>
+        </div>
+        <div>
+            <form action="/checkuser" method="POST">
+                <label for="username">Username:</label><br>
+                <input type="text" name="username" value="John"><br>
+                <label for="password">Password:</label><br>
+                <input type="text" name="password" value="Doe">
+                <input type="submit" name="action" value="Log In">
+                <input type="submit" name="action" value="Sign Up">
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "username": "MikeyBoss",
+      "password": "poop",
+      "friends": [
+        {
+          "username": "john",
+          "swiped-right": [],
+          "swiped": []
+        }
+      ],
+      "genres": [],
+      "services": []
+    },
+    {
+      "username": "MikeyBoss2",
+      "password": "poop1"
+    },
+    {
+      "username": "John",
+      "password": "Doe"
+    }
+  ],
+  "movies": []
+}

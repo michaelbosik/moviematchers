@@ -1,0 +1,24 @@
+{
+    "name": "moviematchers",
+    "version": "1.0.0",
+    "description": "",
+    "author": "Michael Bosik and Matt Iandoli",
+    "scripts": {
+        "start": "npm-run-all run",
+        "run": "node site/server.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "express-session": "^1.16.2",
+        "lowdb": "^1.0.0",
+        "mime": "^2.4.4",
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "body-parser": "^1.19.0",
+        "browserify": "^16.5.0",
+        "eslint": "^6.5.1",
+        "eslint-config-google": "^0.14.0",
+        "npm-run-all": "^4.1.5"
+    }
+}
