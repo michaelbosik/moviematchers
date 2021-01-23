@@ -9,14 +9,14 @@ movies['streaming_service'] = movies['streaming_service'].map(lambda x: list(map
 movies = movies[movies['streaming_service'].map(lambda d: d[0]) != '']
 movies = movies.drop(['titleType', 'originalTitle'], axis=1)
 
-db_json = {}
+db_json = []
 fields = list(movies.columns)
 
 for index, movie in movies.iterrows():
-    movie_json = {}
+    movie_json = {movies.index.name: index}
     for field in fields:
         movie_json[field] = movie[field]
-    db_json[index] = movie_json
+    db_json.append(movie_json)
 
 with open(imdb_path + 'movies.json', 'w') as f:
     json.dump(db_json, f)
