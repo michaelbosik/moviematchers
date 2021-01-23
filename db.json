@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "username": "MikeyBoss",
+      "password": "poop"
+    },
+    {
+      "username": "MikeyBoss2",
+      "password": "poop1"
+    },
+    {
+      "username": "John",
+      "password": "Doe"
+    }
+  ],
+  "movies": []
+}
