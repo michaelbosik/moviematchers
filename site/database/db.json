@@ -2,7 +2,16 @@
   "users": [
     {
       "username": "MikeyBoss",
-      "password": "poop"
+      "password": "poop",
+      "friends": [
+        {
+          "username": "john",
+          "swiped-right": [],
+          "swiped": []
+        }
+      ],
+      "genres": [],
+      "services": []
     },
     {
       "username": "MikeyBoss2",
