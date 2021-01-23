@@ -8,10 +8,20 @@
           "username": "john",
           "swiped-right": [],
           "swiped": []
+        },
+        {
+          "username": "kevin",
+          "swiped-right": [],
+          "swiped": []
         }
       ],
-      "genres": [],
-      "services": []
+      "genres": [
+        "horror",
+        "comedy"
+      ],
+      "services": [
+        "netflix"
+      ]
     },
     {
       "username": "MikeyBoss2",
