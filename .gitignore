@@ -1,1 +1,3 @@
-*.tsv.gz
+*.gz
+*.tsv
+__pycache__/
