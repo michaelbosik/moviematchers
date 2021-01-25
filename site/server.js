@@ -104,7 +104,11 @@ app.post('/makeprofile', function(req, res) {
 
 app.post('/userdata', function(req, res) {
 
-    let user = db.get('users').find({username: req.body.username}).value();
+    let user
+    if(req.body.username)
+        user = db.get('users').find({username: req.body.username}).value();
+    else
+        user = getUserFromIP(getIP(req));
 
     let userdata = {
         friends: user.friends,
@@ -121,19 +125,19 @@ app.post('/movies', function(req, res) {
     sendFile(res, './site/database/movies.json');
 })
 
-app.get('/addfriend', function (req, res) {
-    let user = getUserFromIP(getIP(req));
-    if(user){
-        const friend = req.body.friend;
-        if(db.get('users').find({username: friend}).friendrequests.push(user.username))
-            console.log("Friend request sent!");
-        else
-            console.log("User not found to friend");
-    } else {
-        console.log("User logged out");
-        res.redirect('/login');
-    }
-})
+// app.post('/addfriend', function (req, res) {
+//     let user = getUserFromIP(getIP(req));
+//     if(user){
+//         const friend = req.body.friend;
+//         if(db.get('users').find({username: friend}).value().friendrequests.push(user.username))
+//             console.log("Friend request sent!");
+//         else
+//             console.log("User not found to friend");
+//     } else {
+//         console.log("User logged out");
+//         res.redirect('/login');
+//     }
+// })
 
 // Pages and file access
 app.get('/', function (req, res) {
@@ -173,6 +177,6 @@ app.get('/editprofile', function (req, res) {
 })
 
 // Start server
-app.listen(port, '192.168.0.131', () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Server listening at http://localhost:${port}`)
 })

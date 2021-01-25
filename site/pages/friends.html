@@ -2,13 +2,23 @@
 <html>
     <head>
         <link rel="stylesheet" href="/main.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="/bundle.js"></script>
     </head>
     <body>
-        <div>
-            <form action="/addfriend" method="POST">
-                <input type="text" name="friend" placeholder="Search for user"><br>
-                <input type="submit" name="action" value="Add">
-            </form>
+        <div class="header">
+
+        </div>
+        <div class="friends-list">
+            <div class="search">
+                <form action="/addfriend" method="POST">
+                    <input type="text" name="friend" placeholder="Search for user"><br>
+                    <input type="submit" name="action" value="Add">
+                </form>
+            </div>
+            <div class="friends">
+
+            </div>
         </div>
         <p>Friends</p>
     </body>
